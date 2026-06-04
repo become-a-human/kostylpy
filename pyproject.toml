@@ -1,0 +1,286 @@
+# Современная конфигурация сборки kostylpy
+# Потому что setup.py — это прошлый век, а мы идём в ногу со временем
+# (на костылях)
+
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+# ═══════════════════════════════════════════════════════════════
+# МЕТАДАННЫЕ ПРОЕКТА
+# ═══════════════════════════════════════════════════════════════
+
+[project]
+name = "kostylpy"
+version = "3.0.0b1"  # 3.0.0-beta-kostyl (PEP 440 compatible)
+description = "Профессиональная библиотека костылей для Python"
+readme = "README.md"
+license = {text = "WTFPL + Kostyl Clause"}
+authors = [
+    {name = "Коллектив костылестроителей им. В.Е.Лосипедова", email = "the1stplayergetready@gmail.com"},
+]
+maintainers = [
+    {name = "Отдел костылизации", email = "the1stplayergetready@gmail.com"},
+]
+keywords = [
+    "kostyl", "crutch", "костыль", "костыли",
+    "safe", "retry", "fallback", "error-handling",
+    "monkey-patching", "validation", "logging", "metrics",
+    "async", "debugging", "production",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable (на костылях)",
+    "Intended Audience :: Developers",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Debuggers",
+    "Topic :: Utilities",
+    "Natural Language :: Russian",
+    "Environment :: Console",
+]
+
+requires-python = ">=3.6"
+
+# Минимальные зависимости
+dependencies = [
+    # Встроенные модули Python — всё уже есть!
+]
+
+# ═══════════════════════════════════════════════════════════════
+# ОПЦИОНАЛЬНЫЕ ЗАВИСИМОСТИ
+# ═══════════════════════════════════════════════════════════════
+
+[project.optional-dependencies]
+# YAML конфиги
+yaml = ["pyyaml>=5.0"]
+
+# AST трансформации (Python < 3.9)
+astor = ["astor>=0.8"]
+
+# Метрики памяти
+psutil = ["psutil>=5.0"]
+
+# Разработка
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=2.0",
+    "pytest-timeout>=2.0",
+    "unittest2>=1.1",
+    "flake8>=4.0",
+    "black>=22.0",
+    "isort>=5.0",
+]
+
+# Всё сразу
+all = [
+    "pyyaml>=5.0",
+    "astor>=0.8",
+    "psutil>=5.0",
+]
+
+# ═══════════════════════════════════════════════════════════════
+# ССЫЛКИ ПРОЕКТА
+# ═══════════════════════════════════════════════════════════════
+
+[project.urls]
+Homepage = "https://github.com/become-a-human/kostylpy"
+Documentation = "https://github.com/become-a-human/kostylpy/tree/main/docs"
+Repository = "https://github.com/become-a-human/kostylpy"
+"Bug Tracker" = "https://github.com/become-a-human/kostylpy/issues"
+"Changelog" = "https://github.com/become-a-human/kostylpy/releases"
+"Coffee Fund" = "https://www.buymeacoffee.com/kostylpy"
+"Telegram Chat" = "https://t.me/kraudov"
+
+# ═══════════════════════════════════════════════════════════════
+# СКРИПТЫ (ТОЧКИ ВХОДА)
+# ═══════════════════════════════════════════════════════════════
+
+[project.scripts]
+kostylpy = "kostylpy.__main__:main"
+kostyl = "kostylpy.__main__:main"
+
+[project.gui-scripts]
+kostylpy-gui = "kostylpy.__main__:main"  # Когда-нибудь...
+
+# ═══════════════════════════════════════════════════════════════
+# ИНСТРУМЕНТЫ
+# ═══════════════════════════════════════════════════════════════
+
+[tool.setuptools.packages.find]
+exclude = ["tests", "tests.*", "examples", "examples.*", "docs", "docs.*"]
+
+# ═══════════════════════════════════════════════════════════════
+# TEST
+# ═══════════════════════════════════════════════════════════════
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "--strict-markers",
+    "--disable-warnings",
+    "--color=yes",
+]
+timeout = 30
+markers = [
+    "slow: медленные тесты",
+    "integration: интеграционные тесты",
+    "unit: модульные тесты",
+    "core: тесты ядра",
+    "decorators: тесты декораторов",
+    "validators: тесты валидаторов",
+    "stress: стресс-тесты",
+]
+
+# ═══════════════════════════════════════════════════════════════
+# COVERAGE
+# ═══════════════════════════════════════════════════════════════
+
+[tool.coverage.run]
+source = ["kostylpy"]
+omit = [
+    "tests/*",
+    "examples/*",
+    "docs/*",
+    "setup.py",
+    "*/__main__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "def __str__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+]
+precision = 2
+show_missing = true
+skip_covered = false
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+# ═══════════════════════════════════════════════════════════════
+# LINTING
+# ═══════════════════════════════════════════════════════════════
+
+[tool.flake8]
+max-line-length = 120
+ignore = ["E203", "E266", "E501", "W503"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    ".eggs",
+    "*.egg-info",
+]
+
+[tool.isort]
+profile = "black"
+line_length = 120
+skip_gitignore = true
+
+[tool.black]
+line-length = 120
+target-version = ["py37", "py38", "py39", "py310", "py311"]
+
+# ═══════════════════════════════════════════════════════════════
+# ТИПЫ (когда-нибудь...)
+# ═══════════════════════════════════════════════════════════════
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = false
+warn_unused_configs = true
+ignore_missing_imports = true
+exclude = ["tests/", "examples/"]
+
+# ═══════════════════════════════════════════════════════════════
+# НАСТРОЙКИ KOSTYLPY
+# ═══════════════════════════════════════════════════════════════
+
+[tool.kostylpy]
+# Да, у нас есть свой раздел в pyproject.toml
+# Потому что мы можем
+
+# Порог паники
+panic_threshold = 42
+
+# Требуется кофе
+coffee_required = true
+
+# Автоматические фиксы
+auto_fix = true
+
+# Уровень логирования
+log_level = "INFO"
+
+# Модули для загрузки
+[tool.kostylpy.modules]
+core = true
+config = true
+logger = true
+metrics = true
+decorators = true
+context_managers = true
+exceptions = true
+factories = true
+validators = true
+interceptors = true
+async_kostyl = true
+utils = true
+patcher = true
+patterns = true
+monkey_patcher = true
+
+# Настройки безопасности
+[tool.kostylpy.security]
+block_dangerous_calls = true
+sanitize_input = true
+hash_passwords = true
+
+# Настройки сети
+[tool.kostylpy.network]
+default_timeout = 30
+retry_count = 3
+user_agent = "kostylpy/3.0.0"
+
+# Настройки кеша
+[tool.kostylpy.cache]
+enabled = true
+max_size = 1000
+ttl = 3600
+
+# ═══════════════════════════════════════════════════════════════
+# CI/CD (если когда-нибудь)
+# ═══════════════════════════════════════════════════════════════
+
+[tool.github]
+# Никакого GitHub, мы на костылях
+# Но если бы был...
+
+[tool.gitlab]
+# И GitLab тоже нет
+# Но костыли есть

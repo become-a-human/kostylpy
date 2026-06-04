@@ -1,0 +1,36 @@
+# GitHub Actions: кофе-брейк
+# Самое важное действие
+
+name: ☕ Coffee Break
+
+on:
+  schedule:
+    - cron: "0 9 * * 1-5"  # Каждый будний день в 9:00 UTC
+  workflow_dispatch:  # Ручной запуск
+
+jobs:
+  coffee:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ☕ Check coffee level
+        run: |
+          echo "☕"
+          echo "☕☕"
+          echo "☕☕☕"
+          echo ""
+          echo "🦿 Пора пить кофе!"
+          echo "   Костыли заряжены на 87%"
+          echo ""
+          echo "   Совет дня:"
+          echo "   Если код работает — не трогай."
+          echo "   Если нет — добавь костылей."
+
+      - name: 📊 Coffee stats
+        run: |
+          echo "Статистика кофе:"
+          echo "  Пн: ☕☕☕☕☕"
+          echo "  Вт: ☕☕☕☕"
+          echo "  Ср: ☕☕☕☕☕"
+          echo "  Чт: ☕☕☕"
+          echo "  Пт: ☕☕☕☕☕☕"
+          echo "  Сб-Вс: 😴"

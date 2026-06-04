@@ -1,0 +1,65 @@
+# GitHub Actions: автоматические тесты при каждом пуше
+# Костыли должны быть протестированы!
+
+name: 🧪 Test Kostylpy
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+          pip install pytest pytest-cov pytest-timeout
+
+      - name: 🧪 Run tests
+        run: |
+          python -m pytest tests/ -v --tb=short --timeout=30
+
+      - name: 📊 Coverage
+        run: |
+          python -m pytest tests/ --cov=kostylpy --cov-report=xml --cov-report=term
+
+      - name: ☕ Coffee break
+        run: |
+          echo "☕ Тесты пройдены. Кофе-брейк!"
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 📦 Install linters
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+
+      - name: 🔍 Lint check
+        run: |
+          flake8 kostylpy/ --max-line-length=120 --ignore=E203,E266,E501,W503 --count --statistics || true
+          echo "✅ Линтер проверил код (ошибки выше — это фичи)"

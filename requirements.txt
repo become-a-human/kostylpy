@@ -1,0 +1,5 @@
+# requirements.txt
+# Зависимости kostylpy
+# (встроенные модули Python не перечислены)
+
+pyyaml>=5.0

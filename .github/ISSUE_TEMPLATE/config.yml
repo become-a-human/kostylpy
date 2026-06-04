@@ -1,0 +1,14 @@
+blank_issues_enabled: true
+
+contact_links:
+  - name: 🦿 Документация
+    url: https://github.com/become-a-human/kostylpy/blob/main/docs/API.md
+    about: Прочитайте документацию перед созданием issue
+    
+  - name: ☕ Кофе-брейк
+    url: https://github.com/become-a-human/kostylpy#readme
+    about: Сделайте паузу, выпейте кофе
+    
+  - name: 💬 Обсуждения
+    url: https://github.com/become-a-human/kostylpy/discussions
+    about: Задайте вопрос в обсуждениях

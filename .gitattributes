@@ -1,0 +1,119 @@
+# .gitattributes
+# Настройка атрибутов Git для файлов
+# Чтобы всё работало (на костылях)
+
+# ═══════════════════════════════════════════════════
+# Автоопределение конца строк
+# ═══════════════════════════════════════════════════
+
+# Все текстовые файлы — авто
+* text=auto
+
+# ═══════════════════════════════════════════════════
+# Явное указание конца строк
+# ═══════════════════════════════════════════════════
+
+# Исходный код Python — LF
+*.py text eol=lf
+
+# Shell скрипты — LF
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Makefile — LF (обязательно табы!)
+Makefile text eol=lf
+*.mk text eol=lf
+
+# Конфигурационные файлы — LF
+*.toml text eol=lf
+*.cfg text eol=lf
+*.ini text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Документация — LF
+*.md text eol=lf
+*.rst text eol=lf
+*.txt text eol=lf
+
+# Веб — LF
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+
+# Windows-специфичные — CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# ═══════════════════════════════════════════════════
+# Бинарные файлы
+# ═══════════════════════════════════════════════════
+
+# Изображения
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.webp binary
+
+# Шрифты
+*.ttf binary
+*.woff binary
+*.woff2 binary
+*.eot binary
+
+# Документы
+*.pdf binary
+*.doc binary
+*.docx binary
+*.xls binary
+*.xlsx binary
+
+# Архивы
+*.zip binary
+*.tar binary
+*.gz binary
+*.bz2 binary
+*.7z binary
+
+# Базы данных
+*.db binary
+*.sqlite binary
+
+# ═══════════════════════════════════════════════════
+# Лингвистические атрибуты
+# ═══════════════════════════════════════════════════
+
+# Код на Python
+*.py linguist-language=Python
+
+# Документация на русском
+docs/*.md linguist-language=Markdown
+docs/*.html linguist-language=HTML
+
+# Makefile
+Makefile linguist-language=Makefile
+
+# ═══════════════════════════════════════════════════
+# Diff-атрибуты
+# ═══════════════════════════════════════════════════
+
+# Для Python используем спец-дифф
+*.py diff=python
+
+# Для данных не показываем diff
+*.lock binary
+*.bin binary
+
+# ═══════════════════════════════════════════════════
+# Экспорт
+# ═══════════════════════════════════════════════════
+
+# Не включать в архив
+.gitattributes export-ignore
+.gitignore export-ignore
+.github/ export-ignore

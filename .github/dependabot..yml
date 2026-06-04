@@ -1,0 +1,50 @@
+# Автообновление зависимостей
+# (на случай если у нас появятся зависимости)
+# Костыли должны быть свежими!
+
+version: 2
+
+updates:
+  # Python зависимости
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Moscow"
+    labels:
+      - "dependencies"
+      - "автоматический костыль"
+    commit-message:
+      prefix: "📦"
+      include: "scope"
+    reviewers:
+      - "become-a-human"
+    assignees:
+      - "become-a-human"
+    open-pull-requests-limit: 5
+    target-branch: "main"
+    versioning-strategy: "auto"
+
+  # GitHub Actions (если будут)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "ci"
+      - "автоматический костыль"
+    commit-message:
+      prefix: "🔧"
+
+  # Docker (если будет)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "docker"
+      - "автоматический костыль"
+    commit-message:
+      prefix: "🐳"
