@@ -22,7 +22,7 @@
 
 <p>Напишите нам на почту:</p>
 
-<p><strong>🔐 kostyl@crutch.enterprise</strong></p>
+<p><strong>🔐 the1stplayergetready@gmail.com</strong></p>
 
 <p>⏱️ Мы ответим в течение <strong>42 часов</strong> и выпустим патч. (Или добавим костылей.)</p>
 
